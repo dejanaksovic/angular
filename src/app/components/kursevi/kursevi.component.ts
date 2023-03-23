@@ -5,6 +5,7 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './kursevi.component.html',
   styleUrls: ['./kursevi.component.css']
 })
+
 export class KurseviComponent {
   courses:string[] = [];
   isInputValid:boolean = true;
@@ -36,5 +37,26 @@ export class KurseviComponent {
   deleteSelf(course: string) {
     this.courses = this.courses.filter( e => course !== e);
     this.setLocal();
+  }
+
+  onChange(course:string, input:HTMLInputElement) {
+
+    if(!input.value) {
+      this.isInputValid = false;
+      return
+    }
+
+    const courses:string[] = this.courses.map( e => {
+      if(e === course) {
+        return input.value
+      }
+
+      console.log(e);
+
+      return e;
+    })
+    
+    if(courses)
+      this.courses = courses
   }
 }

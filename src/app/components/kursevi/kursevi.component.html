@@ -1,11 +1,12 @@
 <h2>Lista kurseva: </h2>
-  <input type="text" #courseField>
+  <input (keydown.enter) ="addCourse(courseField)" type="text" #courseField>
   <button (click) = "addCourse(courseField)" class="btn btn-outline-primary d-block mx-auto mt-3" #self>Dodaj kurs</button>
   <p class="text-danger small" *ngIf="!isInputValid">Invalid input, try again</p>
 
 <ul class="course-itteration">
   <li class="p-2" *ngFor = "let course of courses">
     {{course}}
+    <button (click)="onChange(course, courseField)" class="btn btn-warning btn-sm">Izmeni</button>
     <button (click)="deleteSelf(course)" class="btn btn-danger btn-sm">Obrisi</button>
   </li>
 </ul>

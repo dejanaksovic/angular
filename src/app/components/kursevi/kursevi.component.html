@@ -1,1 +1,12 @@
-<p>kursevi works!</p>
+<h2>Lista kurseva: </h2>
+  <input type="text" #courseField>
+  <button (click) = "addCourse(courseField)" class="btn btn-outline-primary" #self>SNIMI</button>
+  <p class="text-danger small" *ngIf="!isInputValid">Invalid input, try again</p>
+
+
+<ul class="course-itteration">
+  <li *ngFor = "let course of courses">
+    {{course}}
+    <button (click)="deleteSelf(course)" class="btn btn-danger btn-sm">Obrisi</button>
+  </li>
+</ul>

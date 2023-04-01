@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Course } from "../../models/Course"
 
 @Component({
@@ -19,8 +19,16 @@ export class KurseviComponent {
     return true
   }
 
+  saveTitlesToStrage():void {
+    localStorage.setItem('courses', this.courses.reduce((acc, e):string =>
+      acc+=`${e.title},`
+      , ""))
+  }
+
   ngOnInit():void {
     const titles: string | null = localStorage.getItem('courses')
+
+    console.log(titles);
 
     if(!titles)
       return
@@ -30,22 +38,18 @@ export class KurseviComponent {
     })
   }
 
-  ngOnDestroy():void {
-    localStorage.setItem('courses', this.courses.reduce( (acc, e):string => {
-      return acc+= `${e.title},`
-    }, ""))
-  }
-
   addCourse():void {
     if(!this.isInputValid)
       return
 
     this.courses.push(new Course(this.inputValue, ++this.globalId));
     this.inputValue = "";
+    this.saveTitlesToStrage()
   }
 
   handleDelete(id: number):void {
     this.courses = this.courses.filter ( e => e.id !== id )
+    this.saveTitlesToStrage()
   }
 
   handleChange(id: number):void {
@@ -56,5 +60,6 @@ export class KurseviComponent {
         e.title = this.inputValue
       }
     })
+    this.saveTitlesToStrage()
   }
 }

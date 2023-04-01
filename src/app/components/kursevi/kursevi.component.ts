@@ -1,40 +1,44 @@
 import { Component, OnInit } from '@angular/core';
+import { Course } from "../../models/Course"
 
 @Component({
   selector: 'app-kursevi',
   templateUrl: './kursevi.component.html',
   styleUrls: ['./kursevi.component.css']
 })
-export class KurseviComponent {
-  courses:string[] = [];
-  isInputValid:boolean = true;
 
-  setLocal() {
-    localStorage.setItem("courses", this.courses.reduce((acc, e) => {
-      return acc += `${e},`
-    }, ''))
+export class KurseviComponent {
+  courses:Course[] = [];
+  inputValue:string = ''
+  globalId:number = 0;
+
+  get isInputValid() {
+    if(this.inputValue === "") {
+      return false
+    }
+    return true
   }
 
-  //Mount lifecycle hook
-  ngOnInit() {
-    localStorage.getItem('courses')?.split(',').forEach( e => {
-      if(e)
-      this.courses.push(e)
+  addCourse():void {
+    if(!this.isInputValid)
+      return
+
+    this.courses.push(new Course(this.inputValue, ++this.globalId));
+    this.inputValue = "";
+  }
+
+  handleDelete(id: number):void {
+    this.courses = this.courses.filter ( e => e.id !== id )
+  }
+
+  handleChange(id: number):void {
+    if(!this.isInputValid)
+      return
+    this.courses.forEach( e => {
+      if(e.id === id) {
+        e.title = this.inputValue
+      }
     })
   }
 
-  addCourse(courseNameInput:HTMLInputElement) {
-    if(!courseNameInput.value) {
-      this.isInputValid = false;
-      return
-    }
-    this.courses.push(courseNameInput.value);
-    courseNameInput.value = "";
-    this.setLocal();
-  }
-
-  deleteSelf(course: string) {
-    this.courses = this.courses.filter( e => course !== e);
-    this.setLocal();
-  }
 }

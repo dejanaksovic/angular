@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Course } from "../../models/Course"
 
 @Component({
@@ -12,11 +12,28 @@ export class KurseviComponent {
   inputValue:string = ''
   globalId:number = 0;
 
-  get isInputValid() {
+  get isInputValid():boolean {
     if(this.inputValue === "") {
       return false
     }
     return true
+  }
+
+  ngOnInit():void {
+    const titles: string | null = localStorage.getItem('courses')
+
+    if(!titles)
+      return
+
+    titles.split(',').forEach( e => {
+      this.courses.push(new Course(e, ++this.globalId))
+    })
+  }
+
+  ngOnDestroy():void {
+    localStorage.setItem('courses', this.courses.reduce( (acc, e):string => {
+      return acc+= `${e.title},`
+    }, ""))
   }
 
   addCourse():void {

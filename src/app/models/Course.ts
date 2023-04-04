@@ -1,7 +1,6 @@
 export class Course {
-    constructor(public title:String, public id:number) {
+    constructor(public id:number, public title:string, public author:string, public details:string | null = null) {
     }
 
-    details:String = "Test detals which will later have it's own input field"
 }
 

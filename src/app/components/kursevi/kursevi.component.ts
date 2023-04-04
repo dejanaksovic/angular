@@ -25,27 +25,27 @@ export class KurseviComponent {
       , ""))
   }
 
-  ngOnInit():void {
-    const titles: string | null = localStorage.getItem('courses')
+  // ngOnInit():void {
+  //   const titles: string | null = localStorage.getItem('courses')
 
-    console.log(titles);
+  //   console.log(titles);
 
-    if(!titles)
-      return
+  //   if(!titles)
+  //     return
 
-    titles.split(',').forEach( e => {
-      this.courses.push(new Course(e, ++this.globalId))
-    })
-  }
+  //   titles.split(',').forEach( e => {
+  //     this.courses.push(new Course(e, ++this.globalId))
+  //   })
+  // }
 
-  addCourse():void {
-    if(!this.isInputValid)
-      return
+  // addCourse():void {
+  //   if(!this.isInputValid)
+  //     return
 
-    this.courses.push(new Course(this.inputValue, ++this.globalId));
-    this.inputValue = "";
-    this.saveTitlesToStrage()
-  }
+  //   this.courses.push(new Course(this.inputValue, ++this.globalId));
+  //   this.inputValue = "";
+  //   this.saveTitlesToStrage()
+  // }
 
   handleDelete(id: number):void {
     this.courses = this.courses.filter ( e => e.id !== id )

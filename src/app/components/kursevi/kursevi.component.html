@@ -1,8 +1,6 @@
 <h2>Lista kurseva: </h2>
-  <input [(ngModel)] = "inputValue" type="text" (keydown.enter) = "addCourse()"  >
-  <button class="btn btn-outline-success d-block mx-auto mt-3" (click) = "addCourse()">Dodaj kurs</button>
-  <p>Vas unos: {{inputValue}} <br> <span *ngIf = "!isInputValid" class="text-primary small">Trenutna vrednost nije validna, morate uneti najmanje (1) karakter</span></p>
 
 <div class="courses-container">
-  <app-course-details (deleteCourse)="handleDelete($event)" (changeCourseTitle)="handleChange($event)" *ngFor = "let course of courses" [course] = "course"/>
+  <app-course-details *ngFor = "let course of courses" [course] = "course"/>
 </div>
+

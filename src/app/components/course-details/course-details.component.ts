@@ -8,16 +8,5 @@ import { Course } from 'src/app/models/Course';
 })
 export class CourseDetailsComponent {
   @Input() course?:Course;
-  @Output() deleteCourse = new EventEmitter<number>()
-  @Output() changeCourseTitle = new EventEmitter<number>()
-
-  onDelete() {
-    const id = this.course?.id
-    this.deleteCourse.emit(id)
-  }
-
-  onChangeTitle() {
-    this.changeCourseTitle.emit(this.course?.id)
-  }
 
 }

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
 import { Course } from "../../models/Course"
 
 @Component({
@@ -10,7 +10,11 @@ import { Course } from "../../models/Course"
 export class KurseviComponent {
 
   @Input() courses:Course[] = [];
+  @Output() deleteEvent = new EventEmitter<number>()
 
-  
+  handleDelete(id:number) {
+    console.log(`Event triggerted, parent, id ${id}`);
+    this.deleteEvent.emit(id);
+  }
 
 }

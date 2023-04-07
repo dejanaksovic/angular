@@ -1,3 +1,4 @@
 <div class="course-details-container" *ngIf = "course?.id">
-  <p><span>Id: {{course?.id}}</span> Naslov:<strong>{{course?.title}}</strong> </p>
+  <p><span>Id: {{course?.id}}</span> Naslov:<strong>{{course?.title}}</strong></p>
+  <button (click)="deleteCourse()" class="btn btn-danger">Obrisi</button>
 </div>

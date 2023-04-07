@@ -16,4 +16,8 @@ export class AppComponent {
   handleAdd(event: CourseData) {
     this.courses.push(new Course(++this.globalId, event.title!, event.author!, event.details))
   }
+
+  handleDelete(id: Number) {
+    this.courses = this.courses.filter( e => e.id !== id)
+  }
 }

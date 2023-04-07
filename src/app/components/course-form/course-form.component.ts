@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { CourseValidator } from './course.validators';
+import { CourseData } from 'src/app/intefaces/ICourseDetails';
 
 @Component({
   selector: 'app-course-form',
@@ -14,6 +15,8 @@ export class CourseFormComponent {
     details: new FormControl('', [Validators.maxLength(200),]),
     author: new FormControl('', [Validators.required, CourseValidator.hasTwoWord])
   })
+
+  @Output() addEvent = new EventEmitter<CourseData>();
 
   get Title() {
     return this.courseForm.get('title')
@@ -40,6 +43,19 @@ export class CourseFormComponent {
     }
 
     return null
+  }
+
+  addCourse() {
+    if(this.Errors)
+    return
+    
+    
+    this.addEvent.emit({
+      title: this.Title?.value as string,
+      author: this.Author?.value as string,
+      details: this.Details?.value as string })
+
+    this.courseForm.reset()
   }
 
   seeObject() {

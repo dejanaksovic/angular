@@ -3,3 +3,8 @@
   padding: 2.5rem;
   border-radius: .5vmax;
 }
+
+.course-details-container:hover {
+  cursor: pointer;
+  color: purple;
+}

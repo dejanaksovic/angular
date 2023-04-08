@@ -1,7 +1,7 @@
 <h2>Lista kurseva: </h2>
 
 <div class="courses-container">
-  <app-course-details (deleteEvent)="handleDelete($event)" *ngFor = "let course of courses" [course] = "course"/>
+  <app-course-details (selectEvent)="handleSelect($event)" (deleteEvent)="handleDelete($event)" *ngFor = "let course of courses" [course] = "course"/>
 </div>
 
 

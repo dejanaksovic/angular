@@ -8,10 +8,15 @@ import { Course } from 'src/app/models/Course';
 })
 export class CourseDetailsComponent {
   @Input() course?:Course;
+
   @Output() deleteEvent = new EventEmitter<number>()
+  @Output() selectEvent = new EventEmitter<number>()
 
   deleteCourse() {
-    console.log("Event emmitted");
     this.deleteEvent.emit(this.course?.id)
+  }
+
+  selectCourse() {
+    this.selectEvent.emit(this.course?.id)
   }
 }

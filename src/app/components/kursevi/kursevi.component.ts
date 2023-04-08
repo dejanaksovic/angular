@@ -10,11 +10,16 @@ import { Course } from "../../models/Course"
 export class KurseviComponent {
 
   @Input() courses:Course[] = [];
+
   @Output() deleteEvent = new EventEmitter<number>()
+  @Output() selectEvent = new EventEmitter<number>()
 
   handleDelete(id:number) {
-    console.log(`Event triggerted, parent, id ${id}`);
     this.deleteEvent.emit(id);
+  }
+
+  handleSelect(id: number) {
+    this.selectEvent.emit(id)
   }
 
 }

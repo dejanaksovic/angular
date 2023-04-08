@@ -18,7 +18,7 @@
     </div>
     <div class="d-flex gap-2 justify-content-center">
         <button (click)="addCourse()" class="btn btn-success">Dodaj</button>
-        <button class="btn btn-warning">Izmeni</button>
+        <button [disabled] = "id ? false : true" (click)="changeCourse()" class="btn btn-warning">Izmeni <span *ngIf = "id">({{id}})</span></button>
     </div>
-    
+
 </form>

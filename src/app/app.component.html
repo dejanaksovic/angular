@@ -4,10 +4,10 @@
   </div>
   <div class="row text-center">
     <div class="col d-flex flex-column align-items-center gap-1 justify-content-around">
-      <app-kursevi (deleteEvent) = "handleDelete($event)" [courses] = "courses" />
+      <app-kursevi (selectEvent)="handleSelect($event)" (deleteEvent) = "handleDelete($event)" [courses] = "courses" />
     </div>
     <div class="col text-center">
-      <app-course-form (addEvent) = "handleAdd($event)"/>
+      <app-course-form [id] = "selectedCourseId" (addEvent) = "handleAdd($event)" (changeEvent)="handleChange($event)"/>
     </div>
     <div class="col text-center">
        <app-sidebar />

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { CourseValidator } from './course.validators';
 import { CourseData } from 'src/app/intefaces/ICourseDetails';
@@ -16,8 +16,12 @@ export class CourseFormComponent {
     author: new FormControl('', [Validators.required, CourseValidator.hasTwoWord])
   })
 
-  @Output() addEvent = new EventEmitter<CourseData>();
+  @Input() id!:number | null;
 
+  @Output() addEvent = new EventEmitter<CourseData>();
+  @Output() changeEvent = new EventEmitter<CourseData>();
+
+  //FORM
   get Title() {
     return this.courseForm.get('title')
   }
@@ -31,25 +35,32 @@ export class CourseFormComponent {
   }
 
   get Errors():string | null {
-    let allErrors:string = "";
+    let allErrors:string = '';
     if (!this.Title?.errors)
       return null
 
     const titleErorrs = this.Title?.errors
 
-    if(titleErorrs?.["minlength"]) {
-      allErrors += `Title field requires ${titleErorrs?.["minlength"].requiredLength - titleErorrs?.["minlength"].actualLength} more characters`
-      return allErrors
+    if(titleErorrs?.["required"]) {
+      allErrors += `The title field is required`
     }
 
-    return null
+    if(titleErorrs?.["minlength"]) {
+      allErrors += `Title field requires ${titleErorrs?.["minlength"].requiredLength - titleErorrs?.["minlength"].actualLength} more characters`
+    }
+
+    if(titleErorrs?.["maxlength"]) {
+      allErrors += `This field must have at least ${titleErorrs?.["maxlength"].requiredLength}`
+    }
+
+    return allErrors || null
   }
 
   addCourse() {
     if(this.Errors)
     return
-    
-    
+
+
     this.addEvent.emit({
       title: this.Title?.value as string,
       author: this.Author?.value as string,
@@ -58,7 +69,14 @@ export class CourseFormComponent {
     this.courseForm.reset()
   }
 
-  seeObject() {
-    console.log(this.Title?.errors)
+  changeCourse() {
+    if(this.Errors)
+      return
+
+    this.changeEvent.emit({
+      title: this.Title?.value as string,
+      author: this.Author?.value as string,
+      details: this.Details?.value as string,
+    })
   }
 }
